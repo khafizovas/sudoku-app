@@ -1,3 +1,5 @@
+const { task, solution } = require('./sudoku.js');
+
 const express = require('express');
 
 const PORT = process.env.PORT || 3001;
@@ -5,7 +7,7 @@ const PORT = process.env.PORT || 3001;
 const app = express();
 
 app.get('/api', (req, res) => {
-	res.json({ message: 'Test msg' });
+	res.json({ task: task });
 });
 
 app.listen(PORT, () => {

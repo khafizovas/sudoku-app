@@ -7,12 +7,12 @@ function App() {
 	React.useEffect(() => {
 		fetch('/api')
 			.then((res) => res.json())
-			.then((data) => setData(data.message));
+			.then((data) => setData(data.task));
 	}, []);
 
 	return (
 		<div className='App'>
-			<p>{!data ? 'No data from server' : data}</p>
+			<p>{!data ? 'No data from server' : JSON.stringify(data)}</p>
 		</div>
 	);
 }
