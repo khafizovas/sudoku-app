@@ -13,8 +13,6 @@ function App() {
 			});
 	}, []);
 
-	console.log('In App', data);
-
 	return (
 		<GameField prefilled={data} />
 

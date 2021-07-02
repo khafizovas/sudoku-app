@@ -4,16 +4,45 @@ import Cell from './Cell.js';
 import InputField from './InputField.js';
 
 class GameField extends React.Component {
+	state = {
+		selectedCell: null,
+		solution: this.props.prefilled.slice(0),
+	};
+
+	selectCell = (x, y) => {
+		this.setState({ selectedCell: { x: x, y: y } });
+	};
+
+	changeSolution = (value) => {
+		if (this.state.selectedCell) {
+			let tmp = this.state.solution;
+
+			tmp[this.state.selectedCell.x][this.state.selectedCell.y] =
+				tmp[this.state.selectedCell.x][this.state.selectedCell.y] !== value
+					? value
+					: null;
+			this.setState({ solution: tmp });
+		}
+	};
+
 	render() {
-		console.log(this.props);
 		return (
 			<div id='game-field'>
 				{[...Array(9).keys()].map((x) =>
 					[...Array(9).keys()].map((y) => (
-						<Cell x={x} y={y} value={this.props.prefilled[x][y]} />
+						<Cell
+							x={x}
+							y={y}
+							value={this.state.solution[x][y]}
+							mutable={this.props.prefilled[x][y]}
+							onClick={this.selectCell}
+						/>
 					))
 				)}
-				<InputField />
+				<InputField
+					selectedCell={this.state.solution}
+					selectValue={this.changeSolution}
+				/>
 			</div>
 		);
 	}
