@@ -8,8 +8,12 @@ function App() {
 	React.useEffect(() => {
 		fetch('/api')
 			.then((res) => res.json())
-			.then((data) => setData(data.task));
+			.then((data) => {
+				setData(data.task);
+			});
 	}, []);
+
+	console.log('In App', data);
 
 	return (
 		<GameField prefilled={data} />
