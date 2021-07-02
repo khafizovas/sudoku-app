@@ -4,7 +4,7 @@ import './Cell.css';
 const Cell = (props) => (
 	<button
 		className='cell'
-		disabled={!props.value}
+		disabled={props.value}
 		data-x={props.x}
 		data-y={props.y}
 	>
