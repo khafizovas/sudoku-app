@@ -10,6 +10,12 @@ app.get('/api', (req, res) => {
 	res.json({ task: task });
 });
 
+app.post('/api/check', (req, res) => {
+	res.json({
+		result: req.body.solution == solution,
+	});
+});
+
 app.listen(PORT, () => {
 	console.log(`Server listening on ${PORT}`);
 });

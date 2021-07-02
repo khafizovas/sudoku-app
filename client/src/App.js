@@ -3,7 +3,7 @@ import './App.css';
 import GameField from './GameField.js';
 import Menu from './Menu';
 
-function App() {
+const App = () => {
 	const [data, setData] = React.useState(null);
 
 	React.useEffect(() => {
@@ -18,12 +18,13 @@ function App() {
 		<div id='game'>
 			<GameField prefilled={data} />
 			<Menu />
+			{/* Add stopwatch */}
 		</div>
 
 		// <div className='App'>
 		// 	<p>{!data ? 'No data from server' : JSON.stringify(data)}</p>
 		// </div>
 	);
-}
+};
 
 export default App;
