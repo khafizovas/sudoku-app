@@ -1,0 +1,11 @@
+#menu {
+	position: fixed;
+	margin-left: 30%;
+	margin-top: -15%;
+}
+
+#menu button {
+	height: 50px;
+	width: 100px;
+	margin: 5px;
+}

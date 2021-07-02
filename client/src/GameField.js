@@ -1,7 +1,7 @@
 import React from 'react';
 import './GameField.css';
-import Cell from './Cell.js';
-import InputField from './InputField.js';
+import Cell from './Cell';
+import InputField from './InputField';
 
 class GameField extends React.Component {
 	state = {
