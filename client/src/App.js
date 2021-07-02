@@ -1,7 +1,6 @@
 import React from 'react';
 import './App.css';
-import GameField from './GameField.js';
-import Menu from './Menu';
+import Game from './Game';
 
 const App = () => {
 	const [data, setData] = React.useState(null);
@@ -15,11 +14,7 @@ const App = () => {
 	}, []);
 
 	return (
-		<div id='game'>
-			<GameField prefilled={data} />
-			<Menu />
-			{/* Add stopwatch */}
-		</div>
+		<Game prefilled={data} />
 
 		// <div className='App'>
 		// 	<p>{!data ? 'No data from server' : JSON.stringify(data)}</p>
