@@ -8,24 +8,27 @@ class GameField extends React.Component {
 		super(props);
 		this.state = {
 			selectedCell: null,
-			solution: props.prefilled.slice(0),
+			solution: null,
 		};
 	}
 
 	selectCell = (x, y) => {
-		this.setState({ selectedCell: { x: x, y: y } });
+		this.setState({
+			selectedCell: { x: x, y: y },
+		});
 	};
 
 	changeSolution = (value) => {
 		if (this.state.selectedCell) {
-			let tmp = this.state.solution;
-
+			let tmp =
+				this.state.solution ||
+				JSON.parse(JSON.stringify([...this.props.prefilled]));
 			tmp[this.state.selectedCell.x][this.state.selectedCell.y] =
 				tmp[this.state.selectedCell.x][this.state.selectedCell.y] !== value
 					? value
 					: null;
 			this.setState({ solution: tmp });
-			this.props.updateSolution(this.state.solution);
+			// this.props.updateSolution(this.state.solution);
 		}
 	};
 
@@ -37,14 +40,20 @@ class GameField extends React.Component {
 						<Cell
 							x={x}
 							y={y}
-							value={this.state.solution[x][y]}
-							mutable={this.props.prefilled[x][y]}
+							value={
+								this.state.solution
+									? this.state.solution[x][y]
+									: this.props.prefilled
+									? this.props.prefilled[x][y]
+									: null
+							}
+							mutable={this.props.prefilled ? this.props.prefilled[x][y] : true}
 							onClick={this.selectCell}
 						/>
 					))
 				)}
 				<InputField
-					selectedCell={this.state.solution}
+					selectedCell={this.state.selectedCell}
 					selectValue={this.changeSolution}
 				/>
 			</div>

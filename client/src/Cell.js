@@ -2,7 +2,6 @@ import React from 'react';
 import './Cell.css';
 
 const Cell = (props) => {
-	console.log(props);
 	return (
 		<button
 			className='cell'
