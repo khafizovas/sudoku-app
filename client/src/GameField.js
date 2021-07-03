@@ -49,6 +49,7 @@ class GameField extends React.Component {
 							}
 							mutable={this.props.prefilled ? this.props.prefilled[x][y] : true}
 							onClick={this.selectCell}
+							key={x + y}
 						/>
 					))
 				)}

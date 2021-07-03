@@ -9,6 +9,7 @@ class InputField extends React.Component {
 					<button
 						className='input-cell'
 						onClick={() => this.props.selectValue(i + 1)}
+						key={i}
 					>
 						{i + 1}
 					</button>
