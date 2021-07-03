@@ -4,10 +4,13 @@ import Cell from './Cell';
 import InputField from './InputField';
 
 class GameField extends React.Component {
-	state = {
-		selectedCell: null,
-		solution: this.props.prefilled.slice(0),
-	};
+	constructor(props) {
+		super(props);
+		this.state = {
+			selectedCell: null,
+			solution: props.prefilled.slice(0),
+		};
+	}
 
 	selectCell = (x, y) => {
 		this.setState({ selectedCell: { x: x, y: y } });
@@ -22,6 +25,7 @@ class GameField extends React.Component {
 					? value
 					: null;
 			this.setState({ solution: tmp });
+			this.props.updateSolution(this.state.solution);
 		}
 	};
 

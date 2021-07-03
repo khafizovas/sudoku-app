@@ -1,13 +1,13 @@
 import React from 'react';
 import './Menu.css';
 
-const Menu = () => {
+const Menu = (props) => {
 	return (
 		<div id='menu'>
 			<button>Hint</button>
 			<button>Reset</button>
 			<button>New game</button>
-			<button>Send solution</button>
+			<button onClick={() => props.sendSolution}>Send solution</button>
 		</div>
 	);
 };
