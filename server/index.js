@@ -11,7 +11,7 @@ app.get('/api', (req, res) => {
 });
 
 app.post('/api/check', (req, res) => {
-	console.log('At server', req.body.solution);
+	// console.log('At server', req.body.solution);
 	res.json({
 		result: req.body.solution == solution,
 	});

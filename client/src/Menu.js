@@ -7,7 +7,7 @@ const Menu = (props) => {
 			<button>Hint</button>
 			<button>Reset</button>
 			<button>New game</button>
-			<button onClick={() => props.sendSolution}>Send solution</button>
+			<button onClick={props.sendSolution}>Send solution</button>
 		</div>
 	);
 };
