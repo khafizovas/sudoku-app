@@ -29,29 +29,28 @@ class Game extends React.Component {
 					? value
 					: null;
 			this.setState({ solution: tmp });
-			// this.props.updateSolution(this.state.solution);
 		}
 	};
 
 	sendSolution = () => {
-		// if (
-		// 	this.state.solution &&
-		// 	this.state.solution.every(
-		// 		(row) => !row.filter((elem) => elem === null).length
-		// 	)
-		// ) {
-		fetch('/api/check', {
-			method: 'post',
-			headers: { 'Content-Type': 'application/json' },
-			body: JSON.stringify({
-				solution: this.state.solution,
-			}),
-		}).then((data) => {
-			console.log(data);
-		});
-		// } else {
-		// 	alert('Input all cells!');
-		// }
+		if (
+			this.state.solution &&
+			this.state.solution.every(
+				(row) => !row.filter((elem) => elem === null).length
+			)
+		) {
+			fetch('/api/check', {
+				method: 'post',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify({
+					solution: this.state.solution,
+				}),
+			})
+				.then((res) => res.json())
+				.then((data) => console.log(data));
+		} else {
+			alert('Input all cells!');
+		}
 	};
 
 	render() {

@@ -1,19 +1,21 @@
 const { task, solution } = require('./sudoku.js');
-
 const express = require('express');
 
 const PORT = process.env.PORT || 3001;
 
 const app = express();
 
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
 app.get('/api', (req, res) => {
 	res.json({ task: task });
 });
 
 app.post('/api/check', (req, res) => {
-	// console.log('At server', req.body.solution);
+	console.log('check solution', JSON.stringify(req.body.solution));
 	res.json({
-		result: req.body.solution == solution,
+		isCorrect: JSON.stringify(req.body.solution) == JSON.stringify(solution),
 	});
 });
 
