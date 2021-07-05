@@ -26,7 +26,7 @@ class Game extends React.Component {
 				JSON.parse(JSON.stringify([...this.props.prefilled]));
 			tmp[this.state.selectedCell.x][this.state.selectedCell.y] =
 				tmp[this.state.selectedCell.x][this.state.selectedCell.y] !== value
-					? value
+					? parseInt(value)
 					: null;
 			this.setState({ solution: tmp });
 		}
@@ -47,7 +47,7 @@ class Game extends React.Component {
 				}),
 			})
 				.then((res) => res.json())
-				.then((data) => console.log(data));
+				.then((data) => alert(data.isCorrect ? 'You have won!' : 'Try again!'));
 		} else {
 			alert('Input all cells!');
 		}
