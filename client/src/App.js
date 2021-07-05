@@ -13,13 +13,7 @@ const App = () => {
 			});
 	}, []);
 
-	return (
-		<Game prefilled={data} />
-
-		// <div className='App'>
-		// 	<p>{!data ? 'No data from server' : JSON.stringify(data)}</p>
-		// </div>
-	);
+	return <Game prefilled={data} />;
 };
 
 export default App;

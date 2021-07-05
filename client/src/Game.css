@@ -1,6 +1,13 @@
+#game {
+	margin-left: 25%;
+	margin-top: 10%;
+}
+
 #game-field {
 	width: fit-content;
 	height: fit-content;
+	float: left;
+	margin-right: 3%;
 	display: grid;
 	grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
 	grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;

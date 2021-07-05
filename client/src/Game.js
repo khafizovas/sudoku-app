@@ -55,25 +55,29 @@ class Game extends React.Component {
 
 	render() {
 		return (
-			<div id='game-field'>
-				{[...Array(9).keys()].map((x) =>
-					[...Array(9).keys()].map((y) => (
-						<Cell
-							x={x}
-							y={y}
-							value={
-								this.state.solution
-									? this.state.solution[x][y]
-									: this.props.prefilled
-									? this.props.prefilled[x][y]
-									: null
-							}
-							mutable={this.props.prefilled ? this.props.prefilled[x][y] : true}
-							onClick={this.selectCell}
-							key={x + y}
-						/>
-					))
-				)}
+			<div id='game'>
+				<div id='game-field'>
+					{[...Array(9).keys()].map((x) =>
+						[...Array(9).keys()].map((y) => (
+							<Cell
+								x={x}
+								y={y}
+								value={
+									this.state.solution
+										? this.state.solution[x][y]
+										: this.props.prefilled
+										? this.props.prefilled[x][y]
+										: null
+								}
+								mutable={
+									this.props.prefilled ? this.props.prefilled[x][y] : true
+								}
+								onClick={this.selectCell}
+								key={x + y}
+							/>
+						))
+					)}
+				</div>
 				<InputField
 					selectedCell={this.state.selectedCell}
 					selectValue={this.changeSolution}
