@@ -13,9 +13,17 @@ app.get('/api', (req, res) => {
 });
 
 app.post('/api/check', (req, res) => {
-	console.log('check solution', JSON.stringify(req.body.solution));
+	console.log(JSON.stringify(req.body.solution));
+	console.log(JSON.stringify(solution));
+	console.log(JSON.stringify(req.body.solution) == JSON.stringify(solution));
 	res.json({
 		isCorrect: JSON.stringify(req.body.solution) == JSON.stringify(solution),
+	});
+});
+
+app.post('/api/hint', (req, res) => {
+	res.json({
+		value: JSON.stringify(solution[req.body.cell.x][req.body.cell.y]),
 	});
 });
 
