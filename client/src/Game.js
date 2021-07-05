@@ -53,6 +53,12 @@ class Game extends React.Component {
 		}
 	};
 
+	resetGame = () => {
+		this.setState({
+			solution: JSON.parse(JSON.stringify([...this.props.prefilled])),
+		});
+	};
+
 	render() {
 		return (
 			<div id='game'>
@@ -82,7 +88,7 @@ class Game extends React.Component {
 					selectedCell={this.state.selectedCell}
 					selectValue={this.changeSolution}
 				/>
-				<Menu sendSolution={this.sendSolution} />
+				<Menu sendSolution={this.sendSolution} resetGame={this.resetGame} />
 			</div>
 		);
 	}
