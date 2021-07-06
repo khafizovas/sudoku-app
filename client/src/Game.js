@@ -1,7 +1,7 @@
 import React from 'react';
 import './Game.css';
 import Cell from './Cell';
-import InputField from './InputField';
+// import InputField from './InputField';
 import Menu from './Menu';
 
 class Game extends React.Component {
@@ -101,10 +101,10 @@ class Game extends React.Component {
 						))
 					)}
 				</div>
-				<InputField
+				{/* <InputField
 					selectedCell={this.state.selectedCell}
 					selectValue={this.changeSolution}
-				/>
+				/> */}
 				<Menu
 					sendSolution={this.sendSolution}
 					resetGame={this.resetGame}

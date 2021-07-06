@@ -1,7 +1,7 @@
 #input-field {
-	width: fit-content;
-	height: fit-content;
-	margin-left: 10%;
+	width: 150px;
+	height: 150px;
+	position: absolute;
 	display: grid;
 	grid-template-columns: 1fr 1fr 1fr;
 	grid-template-rows: 1fr 1fr 1fr;

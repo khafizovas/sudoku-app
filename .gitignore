@@ -1,4 +1,5 @@
 node_modules
+package-lock.json
 
 # dependencies
 client/node_modules
@@ -21,3 +22,4 @@ client/.env.production.local
 client/npm-debug.log*
 client/yarn-debug.log*
 client/yarn-error.log*
+client/package-lock.json

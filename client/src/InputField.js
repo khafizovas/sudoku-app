@@ -8,9 +8,8 @@ class InputField extends React.Component {
 				{[...Array(9).keys()].map((i) => (
 					<button
 						className='input-cell'
-						onClick={() => this.props.selectValue(i + 1)}
-						key={i}
-					>
+						onClick={() => this.props.handleClick(i + 1)}
+						key={i}>
 						{i + 1}
 					</button>
 				))}
