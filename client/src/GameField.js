@@ -1,10 +1,6 @@
 import React from 'react';
 import Cell from './Cell';
 
-// const changeSolution = (value) => {
-// 	console.log(value);
-// };
-
 const GameField = (props) => {
 	return (
 		<div id='game-field'>

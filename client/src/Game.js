@@ -15,7 +15,7 @@ class Game extends React.Component {
 		let tmp =
 			this.state.solution ||
 			JSON.parse(JSON.stringify([...this.props.prefilled]));
-		tmp[cell.x][cell.y] = value;
+		tmp[cell.x][cell.y] = value !== tmp[cell.x][cell.y] ? value : null;
 
 		this.setState({ solution: tmp });
 	};
