@@ -1,8 +1,8 @@
 import React from 'react';
 import './Game.css';
-import Cell from './Cell';
-// import InputField from './InputField';
+// import Cell from './Cell';
 import Menu from './Menu';
+import GameField from './GameField';
 
 class Game extends React.Component {
 	constructor(props) {
@@ -79,7 +79,7 @@ class Game extends React.Component {
 	render() {
 		return (
 			<div id='game'>
-				<div id='game-field'>
+				{/* <div id='game-field'>
 					{[...Array(9).keys()].map((x) =>
 						[...Array(9).keys()].map((y) => (
 							<Cell
@@ -100,11 +100,11 @@ class Game extends React.Component {
 							/>
 						))
 					)}
-				</div>
-				{/* <InputField
-					selectedCell={this.state.selectedCell}
-					selectValue={this.changeSolution}
-				/> */}
+				</div> */}
+				<GameField
+					prefilled={this.props.prefilled}
+					solution={this.state.solution}
+				/>
 				<Menu
 					sendSolution={this.sendSolution}
 					resetGame={this.resetGame}

@@ -14,7 +14,7 @@ class Cell extends React.Component {
 
 	inputValue = (value) => {
 		this.setState({ isActive: false });
-		console.log(value);
+		this.props.handleInput(value);
 	};
 
 	render() {
