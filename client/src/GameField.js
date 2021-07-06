@@ -1,9 +1,9 @@
 import React from 'react';
 import Cell from './Cell';
 
-const changeSolution = (value) => {
-	console.log(value);
-};
+// const changeSolution = (value) => {
+// 	console.log(value);
+// };
 
 const GameField = (props) => {
 	return (
@@ -12,8 +12,7 @@ const GameField = (props) => {
 				[...Array(9).keys()].map((y) => (
 					<Cell
 						key={x + y}
-						x={x}
-						y={y}
+						cell={{ x: x, y: y }}
 						value={
 							props.solution
 								? props.solution[x][y]
@@ -22,7 +21,7 @@ const GameField = (props) => {
 								: null
 						}
 						mutable={props.prefilled ? props.prefilled[x][y] : true}
-						handleInput={changeSolution}
+						handleInput={props.handleCellInput}
 					/>
 				))
 			)}
