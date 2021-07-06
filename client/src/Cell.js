@@ -11,6 +11,13 @@ class Cell extends React.Component {
 		this.props.getHint(this.props.cell);
 	};
 
+	isSelected = () => {
+		return (
+			JSON.stringify(this.props.selectedCell) ===
+			JSON.stringify(this.props.cell)
+		);
+	};
+
 	render() {
 		return (
 			<div className='cell'>
@@ -22,8 +29,7 @@ class Cell extends React.Component {
 					}}>
 					{this.props.value}
 				</button>
-				{JSON.stringify(this.props.selectedCell) ===
-				JSON.stringify(this.props.cell) ? (
+				{this.isSelected() ? (
 					<InputField
 						handleClick={this.inputValue}
 						close={() => {

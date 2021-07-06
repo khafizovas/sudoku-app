@@ -20,14 +20,15 @@ class Game extends React.Component {
 		fetch('/api')
 			.then((res) => res.json())
 			.then((data) => {
-				this.setState({ prefilled: data.task });
+				this.setState({
+					prefilled: data.task,
+					solution: JSON.parse(JSON.stringify([...data.task])),
+				});
 			});
 	};
 
 	changeSolution = (cell, value) => {
-		let tmp =
-			this.state.solution ||
-			JSON.parse(JSON.stringify([...this.state.prefilled]));
+		let tmp = this.state.solution;
 		tmp[cell.x][cell.y] = value !== tmp[cell.x][cell.y] ? value : null;
 
 		this.setState({ solution: tmp });
@@ -35,7 +36,6 @@ class Game extends React.Component {
 
 	sendSolution = () => {
 		if (
-			this.state.solution &&
 			this.state.solution.every(
 				(row) => !row.filter((elem) => elem === null).length
 			)
