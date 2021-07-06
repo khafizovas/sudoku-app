@@ -1,9 +1,11 @@
 #menu {
-	margin-top: 1%;
+	float: right;
 }
 
 #menu button {
+	border: solid;
+	display: block;
 	height: 50px;
 	width: 100px;
-	margin-right: 0.5%;
+	margin: 5%;
 }

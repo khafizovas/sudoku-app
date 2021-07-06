@@ -1,26 +1,12 @@
 #game {
-	margin-left: 25%;
-	margin-top: 10%;
+	margin: 2% auto;
+	width: 50%;
 }
 
-#game-field {
-	width: fit-content;
-	height: fit-content;
-	float: left;
-	margin-right: 3%;
-	display: grid;
-	grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-	grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-	gap: 0px 0px;
-	grid-auto-flow: row;
-	grid-template-areas:
-		'. . . . . . . . .'
-		'. . . . . . . . .'
-		'. . . . . . . . .'
-		'. . . . . . . . .'
-		'. . . . . . . . .'
-		'. . . . . . . . .'
-		'. . . . . . . . .'
-		'. . . . . . . . .'
-		'. . . . . . . . .';
+button {
+	border-radius: 0;
+	border: solid 1px black;
+	color: black;
+	border-collapse: collapse;
+	background-color: white;
 }

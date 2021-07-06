@@ -1,4 +1,5 @@
 import React from 'react';
+import './GameField.css';
 import Cell from './Cell';
 
 const GameField = (props) => {

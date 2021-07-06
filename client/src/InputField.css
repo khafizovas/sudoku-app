@@ -4,6 +4,7 @@
 }
 
 #input-field {
+	border: solid;
 	position: absolute;
 	display: grid;
 	grid-template-columns: 1fr 1fr 1fr;
