@@ -18,6 +18,7 @@ const GameField = (props) => {
 						}
 						mutable={props.prefilled ? props.prefilled[x][y] : true}
 						handleInput={props.handleCellInput}
+						getHint={props.getHint}
 					/>
 				))
 			)}

@@ -1,19 +1,18 @@
+.input-cell {
+	width: 50px;
+	height: 50px;
+}
+
 #input-field {
-	width: 150px;
-	height: 150px;
 	position: absolute;
 	display: grid;
 	grid-template-columns: 1fr 1fr 1fr;
-	grid-template-rows: 1fr 1fr 1fr;
+	grid-template-rows: 1fr 1fr 1fr 1fr;
 	gap: 0px 0px;
 	grid-auto-flow: row;
 	grid-template-areas:
 		'. . .'
 		'. . .'
+		'. . .'
 		'. . .';
-}
-
-.input-cell {
-	width: 50px;
-	height: 50px;
 }

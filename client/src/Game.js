@@ -47,7 +47,7 @@ class Game extends React.Component {
 		});
 	};
 
-	getHint = () => {
+	getHint = (cell) => {
 		// if (
 		// 	this.state.selectedCell &&
 		// 	!this.props.prefilled[this.state.selectedCell]
@@ -62,6 +62,16 @@ class Game extends React.Component {
 		// 		.then((res) => res.json())
 		// 		.then((data) => this.changeSolution(data.value));
 		// }
+
+		fetch('/api/hint', {
+			method: 'post',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify({
+				cell: cell,
+			}),
+		})
+			.then((res) => res.json())
+			.then((data) => this.changeSolution(cell, data.value));
 	};
 
 	render() {
@@ -71,6 +81,7 @@ class Game extends React.Component {
 					prefilled={this.props.prefilled}
 					solution={this.state.solution}
 					handleCellInput={this.changeSolution}
+					getHint={this.getHint}
 				/>
 				<Menu
 					sendSolution={this.sendSolution}
