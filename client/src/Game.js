@@ -11,6 +11,10 @@ class Game extends React.Component {
 		};
 	}
 
+	newGame = () => {
+		console.log('new game');
+	};
+
 	changeSolution = (cell, value) => {
 		let tmp =
 			this.state.solution ||
@@ -48,21 +52,6 @@ class Game extends React.Component {
 	};
 
 	getHint = (cell) => {
-		// if (
-		// 	this.state.selectedCell &&
-		// 	!this.props.prefilled[this.state.selectedCell]
-		// ) {
-		// 	fetch('/api/hint', {
-		// 		method: 'post',
-		// 		headers: { 'Content-Type': 'application/json' },
-		// 		body: JSON.stringify({
-		// 			cell: this.state.selectedCell,
-		// 		}),
-		// 	})
-		// 		.then((res) => res.json())
-		// 		.then((data) => this.changeSolution(data.value));
-		// }
-
 		fetch('/api/hint', {
 			method: 'post',
 			headers: { 'Content-Type': 'application/json' },
@@ -71,7 +60,7 @@ class Game extends React.Component {
 			}),
 		})
 			.then((res) => res.json())
-			.then((data) => this.changeSolution(cell, data.value));
+			.then((data) => this.changeSolution(cell, parseInt(data.value)));
 	};
 
 	render() {
@@ -86,7 +75,7 @@ class Game extends React.Component {
 				<Menu
 					sendSolution={this.sendSolution}
 					resetGame={this.resetGame}
-					getHint={this.getHint}
+					newGame={this.newGame}
 				/>
 			</div>
 		);
