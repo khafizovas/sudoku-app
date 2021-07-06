@@ -4,21 +4,30 @@ import GameField from './GameField';
 import Menu from './Menu';
 
 class Game extends React.Component {
-	constructor(props) {
-		super(props);
+	constructor() {
+		super();
 		this.state = {
+			prefilled: null,
 			solution: null,
 		};
 	}
 
+	componentDidMount() {
+		this.newGame();
+	}
+
 	newGame = () => {
-		console.log('new game');
+		fetch('/api')
+			.then((res) => res.json())
+			.then((data) => {
+				this.setState({ prefilled: data.task });
+			});
 	};
 
 	changeSolution = (cell, value) => {
 		let tmp =
 			this.state.solution ||
-			JSON.parse(JSON.stringify([...this.props.prefilled]));
+			JSON.parse(JSON.stringify([...this.state.prefilled]));
 		tmp[cell.x][cell.y] = value !== tmp[cell.x][cell.y] ? value : null;
 
 		this.setState({ solution: tmp });
@@ -47,7 +56,7 @@ class Game extends React.Component {
 
 	resetGame = () => {
 		this.setState({
-			solution: JSON.parse(JSON.stringify([...this.props.prefilled])),
+			solution: JSON.parse(JSON.stringify([...this.state.prefilled])),
 		});
 	};
 
@@ -67,7 +76,7 @@ class Game extends React.Component {
 		return (
 			<div id='game'>
 				<GameField
-					prefilled={this.props.prefilled}
+					prefilled={this.state.prefilled}
 					solution={this.state.solution}
 					handleCellInput={this.changeSolution}
 					getHint={this.getHint}
