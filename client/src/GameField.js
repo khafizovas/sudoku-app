@@ -23,24 +23,26 @@ class GameField extends React.Component {
 	};
 
 	render() {
-		return (
-			<div id='game-field'>
-				{[...Array(9).keys()].map((x) =>
-					[...Array(9).keys()].map((y) => (
-						<Cell
-							key={x + y}
-							cell={{ x: x, y: y }}
-							value={this.props.solution ? this.props.solution[x][y] : null}
-							mutable={this.props.prefilled ? this.props.prefilled[x][y] : true}
-							selectedCell={this.state.selectedCell}
-							handleClick={this.selectSell}
-							handleInput={this.handleCellInput}
-							getHint={this.getCellHint}
-						/>
-					))
-				)}
-			</div>
-		);
+		const cells = [];
+
+		for (let i = 0; i < 9; ++i) {
+			for (let j = 0; j < 9; ++j) {
+				cells.push(
+					<Cell
+						key={i * 9 + j}
+						cell={{ x: i, y: j }}
+						value={this.props.solution ? this.props.solution[i][j] : null}
+						mutable={this.props.prefilled ? this.props.prefilled[i][j] : true}
+						selectedCell={this.state.selectedCell}
+						handleClick={this.selectSell}
+						handleInput={this.handleCellInput}
+						getHint={this.getCellHint}
+					/>
+				);
+			}
+		}
+
+		return <div id='game-field'>{cells}</div>;
 	}
 }
 
