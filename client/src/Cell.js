@@ -19,22 +19,20 @@ class Cell extends React.Component {
 	};
 
 	render() {
-		const root = document.documentElement;
-
-		root.addEventListener('mousemove', (e) => {
-			root.style.setProperty('--mouse-x', e.clientX + 'px');
-			root.style.setProperty('--mouse-y', e.clientY + 'px');
-		});
-
 		return (
-			<div className='cell'>
-				<button
-					className={'cell-value' + (this.isSelected() ? ' selected-cell' : '')}
-					disabled={this.props.mutable}
-					onClick={() => this.props.handleClick(this.props.cell)}>
-					{this.props.value}
-				</button>
-				{this.isSelected() ? (
+			<td
+				className={
+					'cell' +
+					(this.props.mutable ? '' : ' prefilled-cell') +
+					(this.isSelected() ? ' selected-cell' : '')
+				}
+				onClick={
+					this.props.mutable
+						? () => this.props.handleClick(this.props.cell)
+						: null
+				}>
+				{this.props.value}
+				{this.props.mutable && this.isSelected() ? (
 					<InputField
 						styles={
 							'margin-std' +
@@ -42,13 +40,14 @@ class Cell extends React.Component {
 							(this.props.cell.x > 5 ? ' margin-bottom ' : '')
 						}
 						handleClick={this.inputValue}
-						close={() => {
+						close={(e) => {
+							e.stopPropagation();
 							this.props.handleClick(null);
 						}}
 						hint={this.getHint}
 					/>
 				) : null}
-			</div>
+			</td>
 		);
 	}
 }

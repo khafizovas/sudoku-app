@@ -23,9 +23,9 @@ class GameField extends React.Component {
 	};
 
 	render() {
-		const cells = [];
-
+		const rows = [];
 		for (let i = 0; i < 9; ++i) {
+			const cells = [];
 			for (let j = 0; j < 9; ++j) {
 				cells.push(
 					<Cell
@@ -33,7 +33,7 @@ class GameField extends React.Component {
 						key={i * 9 + j}
 						cell={{ x: i, y: j }}
 						value={this.props.solution ? this.props.solution[i][j] : null}
-						mutable={this.props.prefilled ? this.props.prefilled[i][j] : true}
+						mutable={this.props.prefilled ? !this.props.prefilled[i][j] : true}
 						selectedCell={this.state.selectedCell}
 						handleClick={this.selectSell}
 						handleInput={this.handleCellInput}
@@ -41,9 +41,18 @@ class GameField extends React.Component {
 					/>
 				);
 			}
+			rows.push(
+				<tr className='field-row' key={i}>
+					{cells}
+				</tr>
+			);
 		}
 
-		return <div id='game-field'>{cells}</div>;
+		return (
+			<table id='game-field'>
+				<tbody>{rows}</tbody>
+			</table>
+		);
 	}
 }
 
