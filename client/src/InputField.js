@@ -17,7 +17,7 @@ class InputField extends React.Component {
 		}
 
 		return (
-			<div id='input-field'>
+			<div id='input-field' className={this.props.styles}>
 				{inputFieldNums}
 				<button className='input-cell' onClick={this.props.hint}>
 					Hint

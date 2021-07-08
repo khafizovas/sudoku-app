@@ -19,6 +19,13 @@ class Cell extends React.Component {
 	};
 
 	render() {
+		const root = document.documentElement;
+
+		root.addEventListener('mousemove', (e) => {
+			root.style.setProperty('--mouse-x', e.clientX + 'px');
+			root.style.setProperty('--mouse-y', e.clientY + 'px');
+		});
+
 		return (
 			<div className='cell'>
 				<button
@@ -31,6 +38,11 @@ class Cell extends React.Component {
 				</button>
 				{this.isSelected() ? (
 					<InputField
+						styles={
+							'margin-std' +
+							(this.props.cell.y > 5 ? ' margin-right' : '') +
+							(this.props.cell.x > 5 ? ' margin-bottom ' : '')
+						}
 						handleClick={this.inputValue}
 						close={() => {
 							this.props.handleClick(null);

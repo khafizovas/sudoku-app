@@ -4,7 +4,7 @@
 }
 
 #input-field {
-	border: solid;
+	border: solid black;
 	position: absolute;
 	display: grid;
 	grid-template-columns: 1fr 1fr 1fr;
@@ -16,4 +16,16 @@
 		'. . .'
 		'. . .'
 		'. . .';
+}
+
+.margin-std {
+	margin: 10px 10px;
+}
+
+.margin-right {
+	margin-left: -113px;
+}
+
+.margin-bottom {
+	margin-top: -267px;
 }
