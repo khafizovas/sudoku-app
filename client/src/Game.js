@@ -17,7 +17,7 @@ class Game extends React.Component {
 	}
 
 	newGame = () => {
-		fetch('/api')
+		fetch('/api/new_game')
 			.then((res) => res.json())
 			.then((data) => {
 				this.setState({
@@ -28,10 +28,11 @@ class Game extends React.Component {
 	};
 
 	changeSolution = (cell, value) => {
-		let tmp = this.state.solution;
-		tmp[cell.x][cell.y] = value !== tmp[cell.x][cell.y] ? value : null;
-
-		this.setState({ solution: tmp });
+		this.setState((prevState) => {
+			const newSolution = [...prevState.solution];
+			newSolution[cell.x][cell.y] = value;
+			return { solution: newSolution };
+		});
 	};
 
 	sendSolution = () => {

@@ -12,6 +12,16 @@ class GameField extends React.Component {
 		this.setState({ selectedCell: cell });
 	};
 
+	handleCellInput = (cell, value) => {
+		this.props.handleCellInput(cell, value);
+		this.selectSell(null);
+	};
+
+	getCellHint = (cell) => {
+		this.props.getHint(cell);
+		this.selectSell(null);
+	};
+
 	render() {
 		return (
 			<div id='game-field'>
@@ -24,8 +34,8 @@ class GameField extends React.Component {
 							mutable={this.props.prefilled ? this.props.prefilled[x][y] : true}
 							selectedCell={this.state.selectedCell}
 							handleClick={this.selectSell}
-							handleInput={this.props.handleCellInput}
-							getHint={this.props.getHint}
+							handleInput={this.handleCellInput}
+							getHint={this.getCellHint}
 						/>
 					))
 				)}
