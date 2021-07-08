@@ -5,6 +5,7 @@
 #menu button {
 	border: solid;
 	display: block;
+	background-color: white;
 	height: 50px;
 	width: 100px;
 	margin: 5%;

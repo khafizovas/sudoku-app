@@ -37,7 +37,7 @@ class Cell extends React.Component {
 						styles={
 							'margin-std' +
 							(this.props.cell.y > 5 ? ' margin-right' : '') +
-							(this.props.cell.x > 5 ? ' margin-bottom ' : '')
+							(this.props.cell.x > 4 ? ' margin-bottom ' : '')
 						}
 						handleClick={this.inputValue}
 						close={(e) => {

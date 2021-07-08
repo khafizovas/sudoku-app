@@ -3,34 +3,49 @@ import './InputField.css';
 
 class InputField extends React.Component {
 	render() {
-		const inputFieldNums = [];
+		const rows = [];
 
-		for (let i = 0; i < 9; ++i) {
-			inputFieldNums.push(
-				<button
-					className='input-cell'
-					onClick={() => this.props.handleClick(i + 1)}
-					key={i}>
-					{i + 1}
-				</button>
-			);
+		for (let i = 0; i < 3; ++i) {
+			const cells = [];
+			for (let j = 0; j < 3; ++j) {
+				cells.push(
+					<td
+						onClick={(e) => {
+							e.stopPropagation();
+							this.props.handleClick(i * 3 + j + 1);
+						}}
+						key={i * 3 + j}>
+						{i * 3 + j + 1}
+					</td>
+				);
+			}
+			rows.push(<tr key={i}>{cells}</tr>);
 		}
 
-		return (
-			<div id='input-field' className={this.props.styles}>
-				{inputFieldNums}
-				<button className='input-cell' onClick={this.props.hint}>
+		rows.push(
+			<tr key={3}>
+				<td
+					onClick={(e) => {
+						e.stopPropagation();
+						this.props.hint();
+					}}>
 					Hint
-				</button>
-				<button
-					className='input-cell'
-					onClick={() => this.props.handleClick(null)}>
+				</td>
+				<td
+					onClick={(e) => {
+						e.stopPropagation();
+						this.props.handleClick(null);
+					}}>
 					Del
-				</button>
-				<button className='input-cell' onClick={this.props.close}>
-					X
-				</button>
-			</div>
+				</td>
+				<td onClick={this.props.close}>X</td>
+			</tr>
+		);
+
+		return (
+			<table id='input-field' className={this.props.styles}>
+				<tbody>{rows}</tbody>
+			</table>
 		);
 	}
 }
