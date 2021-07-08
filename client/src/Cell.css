@@ -7,3 +7,7 @@
 .cell-value:disabled {
 	background-color: lightCyan;
 }
+
+.selected-cell {
+	box-shadow: 0px 0px 10px 0px Cyan inset;
+}

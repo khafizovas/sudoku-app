@@ -29,6 +29,7 @@ class GameField extends React.Component {
 			for (let j = 0; j < 9; ++j) {
 				cells.push(
 					<Cell
+						id={i * 9 + j}
 						key={i * 9 + j}
 						cell={{ x: i, y: j }}
 						value={this.props.solution ? this.props.solution[i][j] : null}

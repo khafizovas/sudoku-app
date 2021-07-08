@@ -29,11 +29,9 @@ class Cell extends React.Component {
 		return (
 			<div className='cell'>
 				<button
-					className='cell-value'
+					className={'cell-value' + (this.isSelected() ? ' selected-cell' : '')}
 					disabled={this.props.mutable}
-					onClick={() => {
-						this.props.handleClick(this.props.cell);
-					}}>
+					onClick={() => this.props.handleClick(this.props.cell)}>
 					{this.props.value}
 				</button>
 				{this.isSelected() ? (
