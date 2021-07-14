@@ -63,7 +63,9 @@ class Square extends FieldPart {
 }
 
 class Column extends FieldPart {
-	constructor(field) {}
+	constructor(field, colInd) {
+		super(field, (_, j) => j === colInd);
+	}
 }
 
 class Row extends FieldPart {
