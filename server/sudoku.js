@@ -119,9 +119,11 @@ class RandomField extends Field {
 	genBaseField = () => {};
 
 	transpose = (field) => {
-		field = field[0].map((_, newRowInd, arr) =>
-			arr.map((newRow) => newRow[newRowInd])
-		);
+		for (let i = 0; i < 3; ++i) {
+			for (let j = 0; j < i; ++j) {
+				[field[i][j], field[j][i]] = [field[j][i], field[i][j]];
+			}
+		}
 	};
 
 	swapInArea = (field, areRows) => {
