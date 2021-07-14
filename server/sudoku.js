@@ -126,7 +126,7 @@ class RandomField extends Field {
 		);
 	};
 
-	transpose = (field) => {
+	transpose = () => {
 		for (let i = 0; i < 3; ++i) {
 			for (let j = 0; j < i; ++j) {
 				[field[i][j], field[j][i]] = [field[j][i], field[i][j]];
@@ -134,7 +134,7 @@ class RandomField extends Field {
 		}
 	};
 
-	swapInArea = (field, areRows) => {
+	swapInArea = (areRows) => {
 		const areaOffset = randInt(0, 2) * 3;
 		const [lhs, rhs] = [randInt(0, 2), randInt(0, 2)];
 
@@ -145,9 +145,9 @@ class RandomField extends Field {
 				++i, ++k
 			) {
 				for (let j = 0; j < 9; ++j) {
-					[field[i][j].value, field[k][j].value] = [
-						field[k][j].value,
-						field[i][j].value,
+					[this.cells[i][j].value, this.cells[k][j].value] = [
+						this.cells[k][j].value,
+						this.cells[i][j].value,
 					];
 				}
 			}
@@ -158,44 +158,59 @@ class RandomField extends Field {
 					j < areaOffset + 3 && k < areaOffset + 3;
 					++j, ++k
 				) {
-					[field[i][j].value, field[i][k].value] = [
-						field[i][k].value,
-						field[i][j].value,
+					[this.cells[i][j].value, this.cells[i][k].value] = [
+						this.cells[i][k].value,
+						this.cells[i][j].value,
 					];
 				}
 			}
 		}
 	};
 
-	swapAreas = (field, areHorizontal) => {
+	swapAreas = (areHorizontal) => {
 		const [lhs, rhs] = [randInt(0, 2) * 3, randInt(0, 2) * 3];
 
 		if (areHorizontal) {
 			for (let i = 0; i < 3; ++i) {
 				for (let j = 0; j < 9; ++j) {
-					[field[lhs + i][j], field[rhs + i][j]] = [
-						field[rhs + i][j],
-						field[lhs + i][j],
+					[this.cells[lhs + i][j], this.cells[rhs + i][j]] = [
+						this.cells[rhs + i][j],
+						this.cells[lhs + i][j],
 					];
 				}
 			}
 		} else {
 			for (let i = 0; i < 9; ++i) {
 				for (let j = 0; j < 3; ++j) {
-					[field[i][lhs + j], field[i][rhs + j]] = [
-						field[i][rhs + j],
-						field[i][lhs + j],
+					[this.cells[i][lhs + j], this.cells[i][rhs + j]] = [
+						this.cells[i][rhs + j],
+						this.cells[i][lhs + j],
 					];
 				}
 			}
 		}
 	};
 
-	shuffleField = (field) => {};
+	shuffleField = () => {
+		for (let i = 0; i < 1000; ++i) {
+			const funcInd = randInt(0, 2);
 
-	deleteCells = (field, complexity) => {};
+			switch (funcInd) {
+				case 0:
+					this.transpose();
+					break;
+				case 1:
+					this.swapInArea(randInt(0, 1));
+					break;
+				case 2:
+					this.swapAreas(randInt(0, 1));
+			}
+		}
+	};
 
-	freezePrefilled = (field) => {};
+	deleteCells = (complexity) => {};
+
+	freezePrefilled = () => {};
 }
 
 // module.exports = RandomField;
