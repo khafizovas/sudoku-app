@@ -39,9 +39,23 @@ class Cell {
 }
 
 class FieldPart {
-	constructor(field, filter) {}
+	constructor(field, filter) {
+		this.part = [];
 
-	checkPart = () => {};
+		field.forEach((_, i) => (cell, j) => {
+			if (filter(i, j)) {
+				this.part.push(cell);
+			}
+		});
+	}
+
+	checkPart = () => {
+		return (
+			this.part.filter(
+				(cell, i, arr) => arr.findIndex((cur) => cur.value === cell.value) === i
+			).length === 9
+		);
+	};
 }
 
 class Square extends FieldPart {
