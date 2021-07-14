@@ -1,3 +1,5 @@
+const e = require('express');
+
 const solution = [
 	[7, 6, 3, 5, 9, 4, 2, 1, 8],
 	[5, 1, 8, 7, 2, 6, 4, 9, 3],
@@ -159,7 +161,29 @@ class RandomField extends Field {
 		}
 	};
 
-	swapAreas = (field, areHorizontal) => {};
+	swapAreas = (field, areHorizontal) => {
+		const [lhs, rhs] = [randInt(0, 2) * 3, randInt(0, 2) * 3];
+
+		if (areHorizontal) {
+			for (let i = 0; i < 3; ++i) {
+				for (let j = 0; j < 9; ++j) {
+					[field[lhs + i][j], field[rhs + i][j]] = [
+						field[rhs + i][j],
+						field[lhs + i][j],
+					];
+				}
+			}
+		} else {
+			for (let i = 0; i < 9; ++i) {
+				for (let j = 0; j < 3; ++j) {
+					[field[i][lhs + j], field[i][rhs + j]] = [
+						field[i][rhs + j],
+						field[i][lhs + j],
+					];
+				}
+			}
+		}
+	};
 
 	shuffleField = (field) => {};
 
