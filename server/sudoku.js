@@ -30,6 +30,12 @@ function randInt(min, max) {
 	return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
+const COMPLEXITY_TO_EMPTY_CELLS = {
+	0: [56, 57, 58, 59, 60],
+	1: [51, 52, 53, 54, 55],
+	2: [46, 47, 48, 49, 50],
+};
+
 class Cell {
 	constructor(value) {
 		this._value = value || NaN;
@@ -208,7 +214,19 @@ class RandomField extends Field {
 		}
 	};
 
-	deleteCells = (complexity) => {};
+	deleteCells = (complexity) => {
+		let deleteCount = randInt(
+			COMPLEXITY_TO_EMPTY_CELLS[complexity][0],
+			COMPLEXITY_TO_EMPTY_CELLS[complexity][4]
+		);
+
+		while (deleteCount) {
+			const [i, j] = [randInt(0, 8), randInt(0, 8)];
+
+			deleteCount -= this.cells[i][j].value ? 1 : 0;
+			this.cells[i][j].value = NaN;
+		}
+	};
 
 	freezePrefilled = () => {};
 }
