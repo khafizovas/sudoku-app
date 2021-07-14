@@ -124,7 +124,38 @@ class RandomField extends Field {
 		);
 	};
 
-	swapInArea = (field, areRows) => {};
+	swapInArea = (field, areRows) => {
+		const areaOffset = randInt(0, 2) * 3;
+		const [lhs, rhs] = [randInt(0, 2), randInt(0, 2)];
+
+		if (areRows) {
+			for (
+				let i = areaOffset + lhs, k = areaOffset + rhs;
+				i < areaOffset + 3 && k < areaOffset + 3;
+				++i, ++k
+			) {
+				for (let j = 0; j < 9; ++j) {
+					[field[i][j].value, field[k][j].value] = [
+						field[k][j].value,
+						field[i][j].value,
+					];
+				}
+			}
+		} else {
+			for (let i = 0; i < 9; ++i) {
+				for (
+					let j = areaOffset + lhs, k = areaOffset + rhs;
+					j < areaOffset + 3 && k < areaOffset + 3;
+					++j, ++k
+				) {
+					[field[i][j].value, field[i][k].value] = [
+						field[i][k].value,
+						field[i][j].value,
+					];
+				}
+			}
+		}
+	};
 
 	swapAreas = (field, areHorizontal) => {};
 
