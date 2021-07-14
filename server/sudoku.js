@@ -38,10 +38,18 @@ const COMPLEXITY_TO_EMPTY_CELLS = {
 
 class Cell {
 	constructor(value) {
-		this._value = value || NaN;
+		this._value = value || '';
 	}
 
 	set value(value) {
+		if (!this.isMutable) {
+			throw new Error('Trying to change immutable cell');
+		}
+
+		if (!value.match(/^\d$/) && value !== '') {
+			throw new TypeError('Invalid cell value');
+		}
+
 		this._value = value;
 	}
 
@@ -214,7 +222,7 @@ class RandomField extends Field {
 		}
 	};
 
-	deleteCells = (complexity) => {
+	deleteCells = () => {
 		let deleteCount = randInt(
 			COMPLEXITY_TO_EMPTY_CELLS[complexity][0],
 			COMPLEXITY_TO_EMPTY_CELLS[complexity][4]
