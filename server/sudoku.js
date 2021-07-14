@@ -130,7 +130,12 @@ class Field {
 }
 
 class RandomField extends Field {
-	constructor(complexity) {}
+	constructor(complexity) {
+		this.genBaseField();
+		this.shuffleField();
+		this.deleteCells(complexity);
+		this.freezePrefilled();
+	}
 
 	genBaseField = () => {
 		this.cells.forEach((row, i) =>
@@ -222,7 +227,7 @@ class RandomField extends Field {
 		}
 	};
 
-	deleteCells = () => {
+	deleteCells = (complexity) => {
 		let deleteCount = randInt(
 			COMPLEXITY_TO_EMPTY_CELLS[complexity][0],
 			COMPLEXITY_TO_EMPTY_CELLS[complexity][4]
