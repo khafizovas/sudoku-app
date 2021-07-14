@@ -228,7 +228,11 @@ class RandomField extends Field {
 		}
 	};
 
-	freezePrefilled = () => {};
+	freezePrefilled = () => {
+		this.cells.forEach((row) =>
+			row.forEach((cell) => (cell.isMutable = !isNaN(cell.value)))
+		);
+	};
 }
 
 // module.exports = RandomField;
