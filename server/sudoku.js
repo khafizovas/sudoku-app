@@ -24,18 +24,54 @@ const task = [
 
 module.exports = { task, solution };
 
-class Cell {}
+class Cell {
+	constructor(value) {}
 
-class FieldPart {}
+	set value(value) {}
 
-class Square extends FieldPart {}
+	get value() {}
+}
 
-class Column extends FieldPart {}
+class FieldPart {
+	constructor(field, filter) {}
 
-class Row extends FieldPart {}
+	checkPart = () => {};
+}
 
-class Field {}
+class Square extends FieldPart {
+	constructor(field) {}
+}
 
-class RandomField extends Field {}
+class Column extends FieldPart {
+	constructor(field) {}
+}
+
+class Row extends FieldPart {
+	constructor(field) {}
+}
+
+class Field {
+	constructor() {}
+
+	checkSolution = () => {};
+}
+
+class RandomField extends Field {
+	constructor(complexity) {}
+
+	genBaseField = () => {};
+
+	transpose = (field) => {};
+
+	swapInArea = (field, areRows) => {};
+
+	swapAreas = (field, areHorizontal) => {};
+
+	shuffleField = (field) => {};
+
+	deleteCells = (field, complexity) => {};
+
+	freezePrefilled = (field) => {};
+}
 
 // module.exports = RandomField;
