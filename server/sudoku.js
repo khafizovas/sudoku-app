@@ -59,7 +59,13 @@ class FieldPart {
 }
 
 class Square extends FieldPart {
-	constructor(field) {}
+	constructor(field, squareInd) {
+		super(
+			field,
+			(i, j) =>
+				Math.floor(i / 3) === squareInd && Math.floor(j / 3) === squareInd
+		);
+	}
 }
 
 class Column extends FieldPart {
