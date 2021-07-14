@@ -118,7 +118,13 @@ class Field {
 class RandomField extends Field {
 	constructor(complexity) {}
 
-	genBaseField = () => {};
+	genBaseField = () => {
+		this.cells.forEach((row, i) =>
+			row.forEach(
+				(cell, j) => (cell.value = ((i * 3 + j + Math.floor(i / 3)) % 9) + 1)
+			)
+		);
+	};
 
 	transpose = (field) => {
 		for (let i = 0; i < 3; ++i) {
