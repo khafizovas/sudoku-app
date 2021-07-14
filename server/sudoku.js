@@ -26,7 +26,7 @@ module.exports = { task, solution };
 
 class Cell {
 	constructor(value) {
-		this._value = value;
+		this._value = value || NaN;
 	}
 
 	set value(value) {
@@ -81,9 +81,32 @@ class Row extends FieldPart {
 }
 
 class Field {
-	constructor() {}
+	constructor() {
+		this.cells = Array(9).fill(Array(9).fill(new Cell()));
+		this.checkers = Array(3).fill([]);
 
-	checkSolution = () => {};
+		for (let i = 0; i < 3; ++i) {
+			this.fillParts(i);
+		}
+	}
+
+	fillParts = (typeInd) => {
+		for (let i = 0; i < 9; ++i) {
+			let cur =
+				typeInd === 0
+					? new Square(this.cells, i)
+					: typeInd === 1
+					? new Column(this.cells, i)
+					: new Row(this.cells, i);
+			this.checkers[typeInd].push(cur);
+		}
+	};
+
+	checkSolution = () => {
+		return this.checkers.every((checker) =>
+			checker.every((part) => part.checkPart())
+		);
+	};
 }
 
 class RandomField extends Field {
