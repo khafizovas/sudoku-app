@@ -23,3 +23,19 @@ const task = [
 ];
 
 module.exports = { task, solution };
+
+class Cell {}
+
+class FieldPart {}
+
+class Square extends FieldPart {}
+
+class Column extends FieldPart {}
+
+class Row extends FieldPart {}
+
+class Field {}
+
+class RandomField extends Field {}
+
+// module.exports = RandomField;

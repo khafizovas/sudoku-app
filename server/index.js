@@ -8,7 +8,7 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.get('/api', (req, res) => {
+app.get('/api/new_game', (req, res) => {
 	res.json({ task: task });
 });
 
