@@ -25,11 +25,17 @@ const task = [
 module.exports = { task, solution };
 
 class Cell {
-	constructor(value) {}
+	constructor(value) {
+		this._value = value;
+	}
 
-	set value(value) {}
+	set value(value) {
+		this._value = value;
+	}
 
-	get value() {}
+	get value() {
+		return this._value;
+	}
 }
 
 class FieldPart {
