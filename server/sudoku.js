@@ -24,6 +24,10 @@ const task = [
 
 module.exports = { task, solution };
 
+function randInt(min, max) {
+	return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
 class Cell {
 	constructor(value) {
 		this._value = value || NaN;
