@@ -3,6 +3,7 @@ import './Game.css';
 import GameField from './GameField';
 import Menu from './Menu';
 import Modal from './Modal';
+import ComplexityMenu from './ComplexityMenu';
 
 class Game extends React.Component {
 	constructor() {
@@ -100,34 +101,6 @@ class Game extends React.Component {
 	};
 
 	render() {
-		const setComplexity =
-			this.state.showModal && !this.state.prefilled ? (
-				<Modal>
-					<p>Select complexity</p>
-					<button
-						onClick={() => {
-							this.handleHide();
-							this.newGame(0);
-						}}>
-						Easy
-					</button>
-					<button
-						onClick={() => {
-							this.handleHide();
-							this.newGame(1);
-						}}>
-						Medium
-					</button>
-					<button
-						onClick={() => {
-							this.handleHide();
-							this.newGame(2);
-						}}>
-						Hard
-					</button>
-				</Modal>
-			) : null;
-
 		const result =
 			this.state.showModal && this.state.result ? (
 				<Modal>
@@ -150,6 +123,7 @@ class Game extends React.Component {
 					handleCellInput={this.changeSolution}
 					getHint={this.getHint}
 				/>
+
 				<Menu
 					sendSolution={this.sendSolution}
 					resetGame={this.resetGame}
@@ -158,7 +132,16 @@ class Game extends React.Component {
 						this.selectComplexity();
 					}}
 				/>
-				{setComplexity}
+
+				{this.state.showModal && !this.state.prefilled ? (
+					<ComplexityMenu
+						handleClick={(complexity) => {
+							this.handleHide();
+							this.newGame(complexity);
+						}}
+					/>
+				) : null}
+
 				{result}
 			</div>
 		);
