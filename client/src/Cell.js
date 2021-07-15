@@ -35,11 +35,16 @@ class Cell extends React.Component {
 				className={
 					(this.props.mutable ? '' : ' prefilled-cell') +
 					(this.isInInputArea() ? ' input-area' : '') +
-					(this.isSelected() ? ' selected-cell' : '')
+					(this.isSelected() ? ' selected-cell' : '') +
+					(this.props.value
+						? this.props.value === this.props.selectedValue
+							? ' selected-value'
+							: ''
+						: '')
 				}
 				onClick={
 					this.props.mutable
-						? () => this.props.handleClick(this.props.cell)
+						? () => this.props.handleClick(this.props.cell, this.props.value)
 						: null
 				}>
 				{this.props.value}
