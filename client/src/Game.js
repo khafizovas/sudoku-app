@@ -70,7 +70,7 @@ class Game extends React.Component {
 			}),
 		})
 			.then((res) => res.json())
-			.then((data) => this.changeSolution(cell, parseInt(data.value)));
+			.then((data) => this.changeSolution(cell, parseInt(data.value, 10)));
 	};
 
 	render() {

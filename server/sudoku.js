@@ -1,52 +1,25 @@
-const e = require('express');
-
-const solution = [
-	[7, 6, 3, 5, 9, 4, 2, 1, 8],
-	[5, 1, 8, 7, 2, 6, 4, 9, 3],
-	[2, 9, 4, 3, 8, 1, 7, 6, 5],
-	[3, 5, 2, 1, 4, 9, 8, 7, 6],
-	[1, 8, 7, 6, 5, 3, 9, 2, 4],
-	[6, 4, 9, 2, 7, 8, 5, 3, 1],
-	[4, 7, 6, 9, 1, 5, 3, 8, 2],
-	[8, 2, 1, 4, 3, 7, 6, 5, 9],
-	[9, 3, 5, 8, 6, 2, 1, 4, 7],
-];
-
-const task = [
-	[null, 6, null, 5, 9, null, 2, 1, null],
-	[null, 1, 8, 7, null, null, null, null, 3],
-	[null, 9, null, null, null, 1, 7, null, null],
-	[3, null, null, 1, null, 9, 8, 7, null],
-	[null, 8, null, 6, 5, null, 9, null, 4],
-	[6, 4, 9, null, null, 8, 5, null, 1],
-	[null, null, null, null, 1, 5, 3, 8, null],
-	[8, 2, 1, null, null, null, null, null, null],
-	[9, null, null, null, 6, 2, null, null, 7],
-];
-
-module.exports = { task, solution };
-
 function randInt(min, max) {
 	return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
 const COMPLEXITY_TO_EMPTY_CELLS = {
-	0: [56, 57, 58, 59, 60],
+	2: [56, 57, 58, 59, 60],
 	1: [51, 52, 53, 54, 55],
-	2: [46, 47, 48, 49, 50],
+	0: [46, 47, 48, 49, 50],
 };
 
 class Cell {
 	constructor(value) {
 		this._value = value || '';
+		this.isMutable = true;
 	}
 
 	set value(value) {
-		if (!this.isMutable) {
+		if (!this.isMutable && value !== this._value) {
 			throw new Error('Trying to change immutable cell');
 		}
 
-		if (!value.match(/^\d$/) && value !== '') {
+		if (!value.toString().match(/^\d$/) && value !== '') {
 			throw new TypeError('Invalid cell value');
 		}
 
@@ -62,17 +35,21 @@ class FieldPart {
 	constructor(field, filter) {
 		this.part = [];
 
-		field.forEach((_, i) => (cell, j) => {
-			if (filter(i, j)) {
-				this.part.push(cell);
-			}
-		});
+		field.forEach((row, i) =>
+			row.forEach((cell, j) => {
+				if (filter(i, j)) {
+					this.part.push(cell);
+				}
+			})
+		);
 	}
 
 	checkPart = () => {
 		return (
 			this.part.filter(
-				(cell, i, arr) => arr.findIndex((cur) => cur.value === cell.value) === i
+				(cell, i, arr) =>
+					cell.value !== '' &&
+					arr.findIndex((cur) => cur.value === cell.value) === i
 			).length === 9
 		);
 	};
@@ -82,8 +59,7 @@ class Square extends FieldPart {
 	constructor(field, squareInd) {
 		super(
 			field,
-			(i, j) =>
-				Math.floor(i / 3) === squareInd && Math.floor(j / 3) === squareInd
+			(i, j) => 3 * Math.floor(i / 3) + Math.floor(j / 3) === squareInd
 		);
 	}
 }
@@ -102,24 +78,39 @@ class Row extends FieldPart {
 
 class Field {
 	constructor() {
-		this.cells = Array(9).fill(Array(9).fill(new Cell()));
-		this.checkers = Array(3).fill([]);
+		this.cells = [];
+		this.fillCells();
 
-		for (let i = 0; i < 3; ++i) {
-			this.fillParts(i);
-		}
+		this.checkers = [];
+		this.fillParts();
 	}
 
-	fillParts = (typeInd) => {
+	fillCells = () => {
 		for (let i = 0; i < 9; ++i) {
-			let cur =
-				typeInd === 0
-					? new Square(this.cells, i)
-					: typeInd === 1
-					? new Column(this.cells, i)
-					: new Row(this.cells, i);
-			this.checkers[typeInd].push(cur);
+			this.cells.push([]);
+			for (let j = 0; j < 9; ++j) {
+				this.cells[i].push(new Cell());
+			}
 		}
+	};
+
+	fillParts = () => {
+		for (let j = 0; j < 3; ++j) {
+			this.checkers.push([]);
+			for (let i = 0; i < 9; ++i) {
+				let cur =
+					j === 0
+						? new Square(this.cells, i)
+						: j === 1
+						? new Column(this.cells, i)
+						: new Row(this.cells, i);
+				this.checkers[j].push(cur);
+			}
+		}
+	};
+
+	getValues = () => {
+		return this.cells.map((row) => row.map((cell) => cell.value));
 	};
 
 	checkSolution = () => {
@@ -131,8 +122,13 @@ class Field {
 
 class RandomField extends Field {
 	constructor(complexity) {
+		super();
+
 		this.genBaseField();
 		this.shuffleField();
+
+		this.hints = this.getValues();
+
 		this.deleteCells(complexity);
 		this.freezePrefilled();
 	}
@@ -146,9 +142,12 @@ class RandomField extends Field {
 	};
 
 	transpose = () => {
-		for (let i = 0; i < 3; ++i) {
+		for (let i = 0; i < 9; ++i) {
 			for (let j = 0; j < i; ++j) {
-				[field[i][j], field[j][i]] = [field[j][i], field[i][j]];
+				[this.cells[i][j].value, this.cells[j][i].value] = [
+					this.cells[j][i].value,
+					this.cells[i][j].value,
+				];
 			}
 		}
 	};
@@ -192,18 +191,18 @@ class RandomField extends Field {
 		if (areHorizontal) {
 			for (let i = 0; i < 3; ++i) {
 				for (let j = 0; j < 9; ++j) {
-					[this.cells[lhs + i][j], this.cells[rhs + i][j]] = [
-						this.cells[rhs + i][j],
-						this.cells[lhs + i][j],
+					[this.cells[lhs + i][j].value, this.cells[rhs + i][j].value] = [
+						this.cells[rhs + i][j].value,
+						this.cells[lhs + i][j].value,
 					];
 				}
 			}
 		} else {
 			for (let i = 0; i < 9; ++i) {
 				for (let j = 0; j < 3; ++j) {
-					[this.cells[i][lhs + j], this.cells[i][rhs + j]] = [
-						this.cells[i][rhs + j],
-						this.cells[i][lhs + j],
+					[this.cells[i][lhs + j].value, this.cells[i][rhs + j].value] = [
+						this.cells[i][rhs + j].value,
+						this.cells[i][lhs + j].value,
 					];
 				}
 			}
@@ -211,7 +210,7 @@ class RandomField extends Field {
 	};
 
 	shuffleField = () => {
-		for (let i = 0; i < 1000; ++i) {
+		for (let i = 0; i < 10; ++i) {
 			const funcInd = randInt(0, 2);
 
 			switch (funcInd) {
@@ -232,20 +231,18 @@ class RandomField extends Field {
 			COMPLEXITY_TO_EMPTY_CELLS[complexity][0],
 			COMPLEXITY_TO_EMPTY_CELLS[complexity][4]
 		);
-
 		while (deleteCount) {
 			const [i, j] = [randInt(0, 8), randInt(0, 8)];
-
 			deleteCount -= this.cells[i][j].value ? 1 : 0;
-			this.cells[i][j].value = NaN;
+			this.cells[i][j].value = '';
 		}
 	};
 
 	freezePrefilled = () => {
 		this.cells.forEach((row) =>
-			row.forEach((cell) => (cell.isMutable = !isNaN(cell.value)))
+			row.forEach((cell) => (cell.isMutable = !cell.value))
 		);
 	};
 }
 
-// module.exports = RandomField;
+module.exports = RandomField;
