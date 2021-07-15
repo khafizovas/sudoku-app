@@ -7,8 +7,8 @@ class Game extends React.Component {
 	constructor() {
 		super();
 		this.state = {
-			prefilled: null,
-			solution: null,
+			prefilled: false,
+			solution: false,
 		};
 	}
 
@@ -38,7 +38,7 @@ class Game extends React.Component {
 	sendSolution = () => {
 		if (
 			this.state.solution.every(
-				(row) => !row.filter((elem) => elem === null).length
+				(row) => !row.filter((elem) => elem === '').length
 			)
 		) {
 			fetch('/api/check', {

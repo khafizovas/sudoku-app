@@ -34,7 +34,7 @@ class InputField extends React.Component {
 				<td
 					onClick={(e) => {
 						e.stopPropagation();
-						this.props.handleClick(null);
+						this.props.handleClick('');
 					}}>
 					Del
 				</td>

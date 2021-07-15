@@ -58,7 +58,7 @@ class Cell extends React.Component {
 						handleClick={this.inputValue}
 						close={(e) => {
 							e.stopPropagation();
-							this.props.handleClick(null);
+							this.props.handleClick(false, '');
 						}}
 						hint={this.getHint}
 					/>
