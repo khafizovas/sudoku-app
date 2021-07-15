@@ -2,22 +2,38 @@ import React from 'react';
 import './Game.css';
 import GameField from './GameField';
 import Menu from './Menu';
+import Modal from './Modal';
 
 class Game extends React.Component {
 	constructor() {
 		super();
 		this.state = {
-			prefilled: false,
-			solution: false,
+			showModal: false,
+			prefilled: '',
+			solution: '',
+			result: '',
 		};
 	}
 
+	handleShow = () => {
+		this.setState({ showModal: true });
+	};
+
+	handleHide = () => {
+		this.setState({ showModal: false });
+	};
+
 	componentDidMount() {
-		this.newGame();
+		this.selectComplexity();
 	}
 
-	newGame = () => {
-		fetch('/api/new_game')
+	newGame = (complexity) => {
+		fetch(
+			'/api/new_game?' +
+				new URLSearchParams({
+					complexity: complexity,
+				})
+		)
 			.then((res) => res.json())
 			.then((data) => {
 				this.setState({
@@ -25,6 +41,10 @@ class Game extends React.Component {
 					solution: JSON.parse(JSON.stringify([...data.task])),
 				});
 			});
+	};
+
+	selectComplexity = () => {
+		this.handleShow();
 	};
 
 	changeSolution = (cell, value) => {
@@ -49,10 +69,16 @@ class Game extends React.Component {
 				}),
 			})
 				.then((res) => res.json())
-				.then((data) => alert(data.isCorrect ? 'You have won!' : 'Try again!'));
+				.then((data) =>
+					this.setState({
+						result: data.isCorrect ? 'You have won!' : 'Try again!',
+					})
+				);
 		} else {
-			alert('Input all cells!');
+			this.setState({ result: 'Input all cells!' });
 		}
+
+		this.handleShow();
 	};
 
 	resetGame = () => {
@@ -74,6 +100,48 @@ class Game extends React.Component {
 	};
 
 	render() {
+		const setComplexity =
+			this.state.showModal && !this.state.prefilled ? (
+				<Modal>
+					<p>Select complexity</p>
+					<button
+						onClick={() => {
+							this.handleHide();
+							this.newGame(0);
+						}}>
+						Easy
+					</button>
+					<button
+						onClick={() => {
+							this.handleHide();
+							this.newGame(1);
+						}}>
+						Medium
+					</button>
+					<button
+						onClick={() => {
+							this.handleHide();
+							this.newGame(2);
+						}}>
+						Hard
+					</button>
+				</Modal>
+			) : null;
+
+		const result =
+			this.state.showModal && this.state.result ? (
+				<Modal>
+					<p>{this.state.result}</p>
+					<button
+						onClick={() => {
+							this.handleHide();
+							this.setState({ result: '' });
+						}}>
+						Continue playing
+					</button>
+				</Modal>
+			) : null;
+
 		return (
 			<div id='game'>
 				<GameField
@@ -85,8 +153,13 @@ class Game extends React.Component {
 				<Menu
 					sendSolution={this.sendSolution}
 					resetGame={this.resetGame}
-					newGame={this.newGame}
+					newGame={() => {
+						this.setState({ prefilled: '' });
+						this.selectComplexity();
+					}}
 				/>
+				{setComplexity}
+				{result}
 			</div>
 		);
 	}

@@ -5,7 +5,7 @@ import Cell from './Cell';
 class GameField extends React.Component {
 	constructor(props) {
 		super(props);
-		this.state = { selectedCell: false, selectedValue: '' };
+		this.state = { selectedCell: '', selectedValue: '' };
 	}
 
 	selectSell = (cell, value) => {
@@ -14,12 +14,12 @@ class GameField extends React.Component {
 
 	handleCellInput = (cell, value) => {
 		this.props.handleCellInput(cell, value);
-		this.selectSell(false, '');
+		this.selectSell('', '');
 	};
 
 	getCellHint = (cell) => {
 		this.props.getHint(cell);
-		this.selectSell(false, '');
+		this.selectSell('', '');
 	};
 
 	render() {

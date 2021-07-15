@@ -11,8 +11,7 @@ const Sudoku = require('./sudoku');
 let curSudoku;
 
 app.get('/api/new_game', (req, res) => {
-	// add complexity choice later
-	curSudoku = new Sudoku(0);
+	curSudoku = new Sudoku(parseInt(req.query.complexity));
 
 	res.json({
 		task: curSudoku.getValues(),
