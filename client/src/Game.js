@@ -2,8 +2,8 @@ import React from 'react';
 import './Game.css';
 import GameField from './GameField';
 import Menu from './Menu';
-import Modal from './Modal';
 import ComplexityMenu from './ComplexityMenu';
+import Result from './Result';
 
 class Game extends React.Component {
 	constructor() {
@@ -101,20 +101,6 @@ class Game extends React.Component {
 	};
 
 	render() {
-		const result =
-			this.state.showModal && this.state.result ? (
-				<Modal>
-					<p>{this.state.result}</p>
-					<button
-						onClick={() => {
-							this.handleHide();
-							this.setState({ result: '' });
-						}}>
-						Continue playing
-					</button>
-				</Modal>
-			) : null;
-
 		return (
 			<div id='game'>
 				<GameField
@@ -142,7 +128,15 @@ class Game extends React.Component {
 					/>
 				) : null}
 
-				{result}
+				{this.state.showModal && this.state.result ? (
+					<Result
+						message={this.state.result}
+						handleClick={() => {
+							this.handleHide();
+							this.setState({ result: '' });
+						}}
+					/>
+				) : null}
 			</div>
 		);
 	}
