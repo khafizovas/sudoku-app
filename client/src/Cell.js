@@ -18,12 +18,23 @@ class Cell extends React.Component {
 		);
 	};
 
+	isInInputArea = () => {
+		return this.props.selectedCell
+			? this.props.cell.x === this.props.selectedCell.x ||
+					this.props.cell.y === this.props.selectedCell.y ||
+					(Math.floor(this.props.cell.x / 3) ===
+						Math.floor(this.props.selectedCell.x / 3) &&
+						Math.floor(this.props.cell.y / 3) ===
+							Math.floor(this.props.selectedCell.y / 3))
+			: false;
+	};
+
 	render() {
 		return (
 			<td
 				className={
-					'cell' +
 					(this.props.mutable ? '' : ' prefilled-cell') +
+					(this.isInInputArea() ? ' input-area' : '') +
 					(this.isSelected() ? ' selected-cell' : '')
 				}
 				onClick={
