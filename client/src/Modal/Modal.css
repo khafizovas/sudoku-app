@@ -20,3 +20,15 @@
 	display: inline;
 	margin: 5% 5% 5% 5%;
 }
+
+@media screen and (max-device-width: 1200px) {
+	#modal-root div {
+		width: 20%;
+	}
+}
+
+@media screen and (max-device-width: 690px) {
+	#modal-root div {
+		width: 40%;
+	}
+}

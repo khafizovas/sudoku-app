@@ -1,6 +1,7 @@
 #game {
 	margin: 2% auto;
 	width: 50%;
+	min-width: 315px;
 }
 
 table {
@@ -16,4 +17,36 @@ td {
 	width: 50px;
 	height: 50px;
 	text-align: center;
+}
+
+@media screen and (max-device-width: 1200px) {
+	#game {
+		width: fit-content;
+	}
+
+	table {
+		margin-bottom: 2%;
+	}
+}
+
+@media screen and (max-device-width: 1024px) {
+	td {
+		width: 70px;
+		height: 70px;
+	}
+
+	#game {
+		font-size: 200%;
+	}
+}
+
+@media screen and (max-device-width: 690px) {
+	td {
+		width: 30px;
+		height: 30px;
+	}
+
+	#game {
+		font-size: 100%;
+	}
 }
