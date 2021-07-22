@@ -1,38 +1,12 @@
 const express = require('express');
-
-const PORT = process.env.PORT || 3001;
-
 const app = express();
 
+const routes = require('./routes/gameroute');
+
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(routes);
 
-const Sudoku = require('./services/randomfield');
-let curSudoku;
-
-app.get('/api/new_game', (req, res) => {
-	curSudoku = new Sudoku(req.query.complexity);
-
-	res.json({
-		task: curSudoku.getValues(),
-	});
-});
-
-app.post('/api/check', (req, res) => {
-	req.body.solution.forEach((row, i) =>
-		row.forEach((cell, j) => (curSudoku.cells[i][j].value = cell))
-	);
-
-	res.json({
-		isCorrect: curSudoku.checkSolution(),
-	});
-});
-
-app.post('/api/hint', (req, res) => {
-	res.json({
-		value: JSON.stringify(curSudoku.hints[req.body.cell.x][req.body.cell.y]),
-	});
-});
+const PORT = process.env.PORT || 3001;
 
 app.listen(PORT, () => {
 	console.log(`Server listening on ${PORT}`);
