@@ -1,9 +1,9 @@
 import React from 'react';
 import './App.css';
-import GameField from './GameField';
-import Menu from './Menu';
-import ComplexityMenu from './ComplexityMenu';
-import Result from './Result';
+import GameField from '../GameField';
+import Menu from '../Menu';
+import ComplexityMenu from '../ComplexityMenu';
+import Result from '../Result';
 
 class App extends React.Component {
 	constructor() {
