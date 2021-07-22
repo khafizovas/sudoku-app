@@ -16,6 +16,14 @@ class App extends React.Component {
 		};
 	}
 
+	componentDidMount() {
+		this.selectComplexity();
+	}
+
+	selectComplexity = () => {
+		this.handleShow();
+	};
+
 	handleShow = () => {
 		this.setState({ showModal: true });
 	};
@@ -23,10 +31,6 @@ class App extends React.Component {
 	handleHide = () => {
 		this.setState({ showModal: false });
 	};
-
-	componentDidMount() {
-		this.selectComplexity();
-	}
 
 	newGame = (complexity) => {
 		fetch(
@@ -39,18 +43,14 @@ class App extends React.Component {
 			.then((data) => {
 				this.setState({
 					prefilled: data.task,
-					solution: JSON.parse(JSON.stringify([...data.task])),
+					solution: JSON.parse(JSON.stringify(data.task)),
 				});
 			});
 	};
 
-	selectComplexity = () => {
-		this.handleShow();
-	};
-
 	changeSolution = (cell, value) => {
 		this.setState((prevState) => {
-			const newSolution = [...prevState.solution];
+			const newSolution = JSON.parse(JSON.stringify(prevState.solution));
 			newSolution[cell.x][cell.y] = value;
 			return { solution: newSolution };
 		});
@@ -84,7 +84,7 @@ class App extends React.Component {
 
 	resetGame = () => {
 		this.setState({
-			solution: JSON.parse(JSON.stringify([...this.state.prefilled])),
+			solution: JSON.parse(JSON.stringify(this.state.prefilled)),
 		});
 	};
 
