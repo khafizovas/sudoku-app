@@ -11,7 +11,7 @@ const Sudoku = require('./services/randomfield');
 let curSudoku;
 
 app.get('/api/new_game', (req, res) => {
-	curSudoku = new Sudoku(parseInt(req.query.complexity));
+	curSudoku = new Sudoku(req.query.complexity);
 
 	res.json({
 		task: curSudoku.getValues(),

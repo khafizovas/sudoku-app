@@ -1,9 +1,18 @@
 const Field = require('./field');
-const [randInt, COMPLEXITY_TO_EMPTY_CELLS] = require('./helpers');
+
+Math.randIntRange = function (min, max) {
+	return Math.floor(Math.random() * (max - min + 1)) + min;
+};
 
 class RandomField extends Field {
 	constructor(complexity) {
 		super();
+
+		this.COMPLEXITY_TO_EMPTY_CELLS = {
+			hard: { min: 56, max: 60 },
+			medium: { min: 51, max: 55 },
+			easy: { min: 46, max: 50 },
+		};
 
 		this.genBaseField();
 		this.shuffleField();
@@ -34,8 +43,8 @@ class RandomField extends Field {
 	};
 
 	swapInArea = (areRows) => {
-		const areaOffset = randInt(0, 2) * 3;
-		const [lhs, rhs] = [randInt(0, 2), randInt(0, 2)];
+		const areaOffset = Math.randIntRange(0, 2) * 3;
+		const [lhs, rhs] = [Math.randIntRange(0, 2), Math.randIntRange(0, 2)];
 
 		if (areRows) {
 			for (
@@ -67,7 +76,10 @@ class RandomField extends Field {
 	};
 
 	swapAreas = (areHorizontal) => {
-		const [lhs, rhs] = [randInt(0, 2) * 3, randInt(0, 2) * 3];
+		const [lhs, rhs] = [
+			Math.randIntRange(0, 2) * 3,
+			Math.randIntRange(0, 2) * 3,
+		];
 
 		if (areHorizontal) {
 			for (let i = 0; i < 3; ++i) {
@@ -92,28 +104,28 @@ class RandomField extends Field {
 
 	shuffleField = () => {
 		for (let i = 0; i < 10; ++i) {
-			const funcInd = randInt(0, 2);
+			const funcInd = Math.randIntRange(0, 2);
 
 			switch (funcInd) {
 				case 0:
 					this.transpose();
 					break;
 				case 1:
-					this.swapInArea(randInt(0, 1));
+					this.swapInArea(Math.randIntRange(0, 1));
 					break;
 				case 2:
-					this.swapAreas(randInt(0, 1));
+					this.swapAreas(Math.randIntRange(0, 1));
 			}
 		}
 	};
 
 	deleteCells = (complexity) => {
-		let deleteCount = randInt(
-			COMPLEXITY_TO_EMPTY_CELLS[complexity][0],
-			COMPLEXITY_TO_EMPTY_CELLS[complexity][4]
+		let deleteCount = Math.randIntRange(
+			this.COMPLEXITY_TO_EMPTY_CELLS[complexity].min,
+			this.COMPLEXITY_TO_EMPTY_CELLS[complexity].max
 		);
 		while (deleteCount) {
-			const [i, j] = [randInt(0, 8), randInt(0, 8)];
+			const [i, j] = [Math.randIntRange(0, 8), Math.randIntRange(0, 8)];
 			deleteCount -= this.cells[i][j].value ? 1 : 0;
 			this.cells[i][j].value = '';
 		}
