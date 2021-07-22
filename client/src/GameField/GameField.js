@@ -1,6 +1,6 @@
 import React from 'react';
 import './GameField.css';
-import Cell from '../Cell';
+import Cell from '../Cell/Cell';
 
 class GameField extends React.Component {
 	constructor(props) {

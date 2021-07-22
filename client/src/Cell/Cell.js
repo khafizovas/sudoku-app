@@ -1,6 +1,6 @@
 import React from 'react';
 import './Cell.css';
-import InputField from './InputField';
+import InputField from '../InputField';
 
 class Cell extends React.Component {
 	inputValue = (value) => {
