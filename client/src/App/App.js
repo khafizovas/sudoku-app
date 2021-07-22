@@ -3,7 +3,7 @@ import './App.css';
 import GameField from '../GameField/GameField';
 import Menu from '../Menu/Menu';
 import ComplexityMenu from '../ComplexityMenu';
-import Result from '../Result';
+import Result from '../Result/Result';
 
 class App extends React.Component {
 	constructor() {
