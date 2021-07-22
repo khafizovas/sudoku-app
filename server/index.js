@@ -7,7 +7,7 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-const Sudoku = require('./sudoku');
+const Sudoku = require('./services/randomfield');
 let curSudoku;
 
 app.get('/api/new_game', (req, res) => {
