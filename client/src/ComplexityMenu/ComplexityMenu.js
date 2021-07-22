@@ -8,6 +8,7 @@ const ComplexityMenu = (props) => {
 			<button onClick={() => props.handleClick('easy')}>Easy</button>
 			<button onClick={() => props.handleClick('medium')}>Medium</button>
 			<button onClick={() => props.handleClick('hard')}>Hard</button>
+			<button onClick={() => props.handleClick('test')}>Test</button>
 		</Modal>
 	);
 };

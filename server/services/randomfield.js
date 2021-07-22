@@ -12,6 +12,7 @@ class RandomField extends Field {
 			hard: { min: 56, max: 60 },
 			medium: { min: 51, max: 55 },
 			easy: { min: 46, max: 50 },
+			test: { min: 1, max: 1 },
 		};
 
 		this.genBaseField();
