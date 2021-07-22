@@ -1,11 +1,11 @@
 import React from 'react';
-import './Game.css';
+import './App.css';
 import GameField from './GameField';
 import Menu from './Menu';
 import ComplexityMenu from './ComplexityMenu';
 import Result from './Result';
 
-class Game extends React.Component {
+class App extends React.Component {
 	constructor() {
 		super();
 		this.state = {
@@ -142,4 +142,4 @@ class Game extends React.Component {
 	}
 }
 
-export default Game;
+export default App;
