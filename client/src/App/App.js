@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import GameField from '../GameField/GameField';
-import Menu from '../Menu';
+import Menu from '../Menu/Menu';
 import ComplexityMenu from '../ComplexityMenu';
 import Result from '../Result';
 
